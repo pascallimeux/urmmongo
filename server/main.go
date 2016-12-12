@@ -14,7 +14,6 @@ limitations under the License.
 package main
 
 import (
-	"fmt"
 	"github.com/pascallimeux/urmmongo/server/api"
 	"github.com/pascallimeux/urmmongo/server/model"
 	"github.com/pascallimeux/urmmongo/utils"

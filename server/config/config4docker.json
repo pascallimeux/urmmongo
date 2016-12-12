@@ -3,7 +3,7 @@
     "logFileName":"/var/log/mhealth-urm-mongo/urmmongodb.log",
     "mongoUrl":"urmmongo_database_1",
     "mongoDbName":"MHT2015DB",
-    "httpHostUrl":"localhost:8088",
+    "httpHostUrl":":8088",
     "readTimeout":5,
 	"writeTimeout":10,
 	"handlerTimeout":12

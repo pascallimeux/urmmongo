@@ -1,9 +1,9 @@
 server:  
-  build: ./server
+  build: .
   ports: 
     - 8088:8088
   volumes:
-    - ./server:/go/src/github.com/pascallimeux/urmmongo/server
+    - ./server:/go/src/github.com/pascallimeux/urmmongo
   links:
     - database
   environment:

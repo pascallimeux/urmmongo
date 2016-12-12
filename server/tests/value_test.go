@@ -17,6 +17,7 @@ import (
 	"testing"
 )
 
+// example to start one test: go test -run "TestValueCreateNominal"
 func TestValueCreateNominal(t *testing.T) {
 	datasourceId := testCreateDS(MOCK_DS, t)
 	streamId := testCreateST(datasourceId, MOCK_ST, t)
