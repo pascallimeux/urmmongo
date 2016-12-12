@@ -30,7 +30,6 @@ import (
 
 func TestMain(m *testing.M) {
 	setup(true)
-	MOCK_HR = testReadFile(MOCKFILENAME)
 	code := m.Run()
 	shutdown()
 	os.Exit(code)
@@ -66,7 +65,7 @@ func DropDB(session *mgo.Session, dbname string) {
 
 func setup(isDropDB bool) {
 	// Read configuration file
-	configuration, err := utils.Readconf("configtest.json")
+	configuration, err := utils.Readconf("../config/configtest.json")
 	if err != nil {
 		log.Fatal(log.Here(), "error:", err.Error())
 	}
@@ -94,6 +93,9 @@ func setup(isDropDB bool) {
 	// Init http server
 	router := appContext.CreateRoutes()
 	httpServerTest = httptest.NewServer(router)
+
+	// Read mack file for value
+	MOCK_HR = testReadFile(MOCKFILENAME)
 }
 
 func shutdown() {

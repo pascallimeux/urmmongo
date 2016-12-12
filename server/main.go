@@ -14,17 +14,27 @@ limitations under the License.
 package main
 
 import (
+	"fmt"
 	"github.com/pascallimeux/urmmongo/server/api"
 	"github.com/pascallimeux/urmmongo/server/model"
 	"github.com/pascallimeux/urmmongo/utils"
 	"github.com/pascallimeux/urmmongo/utils/log"
 	"net/http"
+	"os"
 	"time"
 )
 
 func main() {
+
+	// get arguments
+	config_file := "config.json"
+	args := os.Args[1:]
+	if len(args) == 1 {
+		config_file = args[0]
+	}
+
 	// Init configuration
-	configuration, err := utils.Readconf("config.json")
+	configuration, err := utils.Readconf(config_file)
 	if err != nil {
 		panic(err.Error())
 	}
