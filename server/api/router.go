@@ -35,7 +35,7 @@ func (appContext *AppContext) CreateRoutes() *mux.Router {
 	router.HandleFunc("/datasources/{ds_id}/streams", appContext.getStreamsHandler).Methods("GET")
 	router.HandleFunc("/datasources/{ds_id}/streams/", appContext.postStreamHandler).Methods("POST")
 	router.HandleFunc("/datasources/{ds_id}", appContext.getDatasourceHandler).Methods("GET")
-	router.HandleFunc("/datasources", appContext.getDatasourcesHandler).Methods("GET")
+	router.HandleFunc("/datasources/", appContext.getDatasourcesHandler).Methods("GET")
 	router.HandleFunc("/datasources/", appContext.postDatasourceHandler).Methods("POST")
 	return router
 }
