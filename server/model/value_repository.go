@@ -48,15 +48,19 @@ func (m MongoContext) CreateValueIndex() error {
 func (m MongoContext) Create_value(ds_id, st_id string, value *Value) error {
 	log.Trace(log.Here(), "Create_value() : calling method -")
 	value.Id = bson.NewObjectId()
-	_, err := m.checkDatasourceID(ds_id)
-	if err != nil {
-		log.Error(log.Here(), err.Error())
-		return err
-	}
-	_, err = m.checkStreamID(st_id)
-	if err != nil {
-		log.Error(log.Here(), err.Error())
-		return err
+	if m.Control {
+		_, err := m.checkDatasourceID(ds_id)
+		if err != nil {
+			log.Error(log.Here(), err.Error())
+			return err
+		}
+		_, err = m.checkStreamID(st_id)
+		if err != nil {
+			log.Error(log.Here(), err.Error())
+			return err
+		}
+	} else {
+
 	}
 	value.Ds_id = ds_id
 	value.St_id = st_id

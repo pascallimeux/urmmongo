@@ -25,6 +25,7 @@ import (
 type MongoContext struct {
 	Session     *mgo.Session
 	MongoDbName string
+	Control     bool
 }
 
 type DataSource struct {

@@ -26,7 +26,7 @@ func TestValueCreateNominal(t *testing.T) {
 }
 
 func TestValueGetAllNominal(t *testing.T) {
-	DropDB(appContext.Mongo.Session, appContext.Mongo.MongoDbName)
+	DropDB(AppContext.Mongo.Session, AppContext.Mongo.MongoDbName)
 	datasourceId := testCreateDS(MOCK_DS, t)
 	streamId := testCreateST(datasourceId, MOCK_ST, t)
 	datestr := "2016-12-09T08:41:30+02:00"
@@ -42,7 +42,7 @@ func TestValueGetAllNominal(t *testing.T) {
 }
 
 func TestValueGetForAdayNominal(t *testing.T) {
-	DropDB(appContext.Mongo.Session, appContext.Mongo.MongoDbName)
+	DropDB(AppContext.Mongo.Session, AppContext.Mongo.MongoDbName)
 	datasourceId := testCreateDS(MOCK_DS, t)
 	streamId := testCreateST(datasourceId, MOCK_ST, t)
 	datestr := "2016-12-10T08:41:32+02:00"
@@ -58,7 +58,7 @@ func TestValueGetForAdayNominal(t *testing.T) {
 }
 
 func TestValueGetWithDateFromNominal(t *testing.T) {
-	DropDB(appContext.Mongo.Session, appContext.Mongo.MongoDbName)
+	DropDB(AppContext.Mongo.Session, AppContext.Mongo.MongoDbName)
 	datasourceId := testCreateDS(MOCK_DS, t)
 	streamId := testCreateST(datasourceId, MOCK_ST, t)
 	datestr := "2016-12-05T09:41:30+02:00"
@@ -75,7 +75,7 @@ func TestValueGetWithDateFromNominal(t *testing.T) {
 }
 
 func TestValueGetWithDateToNominal(t *testing.T) {
-	DropDB(appContext.Mongo.Session, appContext.Mongo.MongoDbName)
+	DropDB(AppContext.Mongo.Session, AppContext.Mongo.MongoDbName)
 	datasourceId := testCreateDS(MOCK_DS, t)
 	streamId := testCreateST(datasourceId, MOCK_ST, t)
 	datestr := "2016-12-05T09:41:30+02:00"
@@ -92,7 +92,7 @@ func TestValueGetWithDateToNominal(t *testing.T) {
 }
 
 func TestValueGetWithPeriodNominal(t *testing.T) {
-	DropDB(appContext.Mongo.Session, appContext.Mongo.MongoDbName)
+	DropDB(AppContext.Mongo.Session, AppContext.Mongo.MongoDbName)
 	datasourceId := testCreateDS(MOCK_DS, t)
 	streamId := testCreateST(datasourceId, MOCK_ST, t)
 	datestr := "2016-12-10T09:41:30+02:00"
@@ -109,7 +109,7 @@ func TestValueGetWithPeriodNominal(t *testing.T) {
 }
 
 func TestValueGetWithIntervalBetweenValuesNominal(t *testing.T) {
-	DropDB(appContext.Mongo.Session, appContext.Mongo.MongoDbName)
+	DropDB(AppContext.Mongo.Session, AppContext.Mongo.MongoDbName)
 	datasourceId := testCreateDS(MOCK_DS, t)
 	streamId := testCreateST(datasourceId, MOCK_ST, t)
 	datestr := "2016-12-08T09:41:00+02:00"

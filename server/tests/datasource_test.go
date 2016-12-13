@@ -28,7 +28,7 @@ func TestDatasourceCreateAndGetNominal(t *testing.T) {
 }
 
 func TestDatasourceGetAllNominal(t *testing.T) {
-	DropDB(appContext.Mongo.Session, appContext.Mongo.MongoDbName)
+	DropDB(AppContext.Mongo.Session, AppContext.Mongo.MongoDbName)
 	for i := 0; i < 10; i++ {
 		testCreateDS(MOCK_DS, t)
 	}

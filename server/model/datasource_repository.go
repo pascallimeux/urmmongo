@@ -42,7 +42,9 @@ func (m MongoContext) checkDatasourceID(ds_id string) (bool, error) {
 // Create a datasource
 func (m MongoContext) Create_datasource(datasource *DataSource) error {
 	log.Trace(log.Here(), "Create_datasource() : calling method -")
-	datasource.Id = bson.NewObjectId()
+	if !bson.IsObjectIdHex(datasource.Id.String()) {
+		datasource.Id = bson.NewObjectId()
+	}
 	datasource.Date_creation = time.Now()
 	mongoSession := m.Session.Clone()
 	defer mongoSession.Close()

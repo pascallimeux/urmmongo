@@ -63,10 +63,22 @@ func (m MongoContext) CreateStreamIndex() error {
 // Create a stream for a datasouce
 func (m MongoContext) Create_stream(ds_id string, stream *Stream) error {
 	log.Trace(log.Here(), "Create_stream() : calling method -")
-	_, err := m.checkDatasourceID(ds_id)
-	if err != nil {
-		log.Error(log.Here(), err.Error())
-		return err
+	if m.Control {
+		_, err := m.checkDatasourceID(ds_id)
+		if err != nil {
+			log.Error(log.Here(), err.Error())
+			return err
+		}
+	} else {
+		//tester si le DS exist sinon créer
+		var datasource DataSource
+		datasource.Id = bson.ObjectIdHex(ds_id)
+		datasource.Name = "autocreate"
+		datasource.Description = "Datasource auto create"
+		err := m.Create_datasource(&datasource)
+		if err != nil {
+			return err
+		}
 	}
 	stream.Id = bson.NewObjectId()
 	stream.Ds_id = ds_id
@@ -74,7 +86,7 @@ func (m MongoContext) Create_stream(ds_id string, stream *Stream) error {
 	mongoSession := m.Session.Clone()
 	defer mongoSession.Close()
 	c := mongoSession.DB(m.MongoDbName).C("stream")
-	err = c.Insert(stream)
+	err := c.Insert(stream)
 	if err != nil {
 		log.Error(log.Here(), err.Error())
 		return err

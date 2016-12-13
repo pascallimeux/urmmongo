@@ -36,7 +36,7 @@ func TestMain(m *testing.M) {
 }
 
 var applicationJSON string = "application/json"
-var appContext api.AppContext
+var AppContext api.AppContext
 var httpServerTest *httptest.Server
 var logfile *os.File
 var MOCK_HR string
@@ -85,13 +85,13 @@ func setup(isDropDB bool) {
 	}
 
 	// Init application context
-	appContext = api.AppContext{}
-	appContext.Mongo.Session = mongoSession
-	appContext.Mongo.MongoDbName = configuration.MongoDbName
-	appContext.Mongo.CreateIndex()
+	AppContext = api.AppContext{}
+	AppContext.Mongo.Session = mongoSession
+	AppContext.Mongo.MongoDbName = configuration.MongoDbName
+	AppContext.Mongo.CreateIndex()
 
 	// Init http server
-	router := appContext.CreateRoutes()
+	router := AppContext.CreateRoutes()
 	httpServerTest = httptest.NewServer(router)
 
 	// Read mack file for value
@@ -101,7 +101,7 @@ func setup(isDropDB bool) {
 func shutdown() {
 	defer logfile.Close()
 	defer httpServerTest.Close()
-	defer appContext.Mongo.Session.Close()
+	defer AppContext.Mongo.Session.Close()
 }
 
 func build_payload(value, datestr string) string {

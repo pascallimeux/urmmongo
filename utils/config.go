@@ -16,6 +16,7 @@ type Configuration struct {
 	ReadTimeout    time.Duration
 	WriteTimeout   time.Duration
 	HandlerTimeout time.Duration
+	control        bool
 }
 
 // Read configuration file and create Configuration

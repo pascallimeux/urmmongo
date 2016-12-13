@@ -29,7 +29,7 @@ func TestStreamCreateAndGetNominal(t *testing.T) {
 }
 
 func TestStreamGetAllNominal(t *testing.T) {
-	DropDB(appContext.Mongo.Session, appContext.Mongo.MongoDbName)
+	DropDB(AppContext.Mongo.Session, AppContext.Mongo.MongoDbName)
 	datasourceId := testCreateDS(MOCK_DS, t)
 	for i := 0; i < 10; i++ {
 		testCreateST(datasourceId, MOCK_ST, t)
@@ -52,8 +52,10 @@ func TestStreamCreateBadValues(t *testing.T) {
 	var stream model.Stream
 	json.Unmarshal(bytes, &stream)
 	id := stream.Id.Hex()
-	if res.StatusCode != http.StatusBadRequest {
-		t.Fatalf("Non-expected status code: %v\n\tbody: %v, data:%s\n", http.StatusBadRequest, res.StatusCode, id)
+	if AppContext.Mongo.Control {
+		if res.StatusCode != http.StatusBadRequest {
+			t.Fatalf("Non-expected status code: %v\n\tbody: %v, data:%s\n", http.StatusBadRequest, res.StatusCode, id)
+		}
 	}
 }
 
@@ -68,8 +70,10 @@ func TestStreamCreateBadDsID(t *testing.T) {
 	var stream model.Stream
 	json.Unmarshal(bytes, &stream)
 	id := stream.Id.Hex()
-	if res.StatusCode != http.StatusBadRequest {
-		t.Fatalf("Non-expected status code: %v\n\tbody: %v, data:%s\n", http.StatusBadRequest, res.StatusCode, id)
+	if AppContext.Mongo.Control {
+		if res.StatusCode != http.StatusBadRequest {
+			t.Fatalf("Non-expected status code: %v\n\tbody: %v, data:%s\n", http.StatusBadRequest, res.StatusCode, id)
+		}
 	}
 }
 
@@ -83,8 +87,10 @@ func TestStreamGetBadStID(t *testing.T) {
 		t.Error(err)
 	}
 	body := string(data)
-	if res.StatusCode != http.StatusBadRequest {
-		t.Fatal("Non-expected status code: %v\n\tbody: %v, data:%s\n", http.StatusBadRequest, res.StatusCode, body)
+	if AppContext.Mongo.Control {
+		if res.StatusCode != http.StatusBadRequest {
+			t.Fatal("Non-expected status code: %v\n\tbody: %v, data:%s\n", http.StatusBadRequest, res.StatusCode, body)
+		}
 	}
 }
 
@@ -99,7 +105,9 @@ func TestStreamGetBadDsID(t *testing.T) {
 		t.Error(err)
 	}
 	body := string(data)
-	if res.StatusCode != http.StatusBadRequest {
-		t.Fatal("Non-expected status code: %v\n\tbody: %v, data:%s\n", http.StatusBadRequest, res.StatusCode, body)
+	if AppContext.Mongo.Control {
+		if res.StatusCode != http.StatusBadRequest {
+			t.Fatal("Non-expected status code: %v\n\tbody: %v, data:%s\n", http.StatusBadRequest, res.StatusCode, body)
+		}
 	}
 }

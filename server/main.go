@@ -52,6 +52,7 @@ func main() {
 
 	// Init application context
 	appContext := api.AppContext{}
+	appContext.Mongo.control = configuration.control
 	appContext.Mongo.Session = mongoSession
 	appContext.Mongo.MongoDbName = configuration.MongoDbName
 	appContext.Mongo.CreateIndex()
