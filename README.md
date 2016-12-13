@@ -47,5 +47,6 @@
 		./stop_docker.sh
 
 	- Deploy autostart service
+		check path in urmmongo.service
 		cd $GOPATH/src/github.com/pascallimeux/urmmongo/dist
 		./deploy_service.sh
