@@ -195,7 +195,7 @@ func testGetST(datasourceId, streamId string, t *testing.T) {
 }
 
 func testGetAllDS(t *testing.T) []model.DataSource {
-	res, err := http.Get(httpServerTest.URL + "/datasources")
+	res, err := http.Get(httpServerTest.URL + "/datasources/")
 	data, err := ioutil.ReadAll(res.Body)
 	res.Body.Close()
 	if err != nil {
