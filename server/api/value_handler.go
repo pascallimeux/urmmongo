@@ -1,5 +1,5 @@
 /*
-Copyright Orange Labs. 2016 All Rights Reserved.
+Copyright Pascal Limeux. 2016 All Rights Reserved.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -81,6 +81,7 @@ func (a *AppContext) postValueHandler(w http.ResponseWriter, r *http.Request) {
 	//}
 
 	value = values[0]
+	log.Trace(log.Here(), "create value for DSID:", ds_id, "  STDI: ", st_id)
 	err = a.Mongo.Create_value(ds_id, st_id, &value)
 	if err != nil {
 		sendError(log.Here(), w, err)

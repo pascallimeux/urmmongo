@@ -1,5 +1,5 @@
 /*
-Copyright Orange Labs. 2016 All Rights Reserved.
+Copyright Pascal Limeux. 2016 All Rights Reserved.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -52,7 +52,7 @@ func main() {
 
 	// Init application context
 	appContext := api.AppContext{}
-	appContext.Mongo.control = configuration.control
+	appContext.Mongo.Control = configuration.Control
 	appContext.Mongo.Session = mongoSession
 	appContext.Mongo.MongoDbName = configuration.MongoDbName
 	appContext.Mongo.CreateIndex()

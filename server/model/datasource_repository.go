@@ -1,5 +1,5 @@
 /*
-Copyright Orange Labs. 2016 All Rights Reserved.
+Copyright Pascal Limeux. 2016 All Rights Reserved.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -24,7 +24,6 @@ import (
 // Check if a datasource exist from ds_id
 func (m MongoContext) checkDatasourceID(ds_id string) (bool, error) {
 	log.Trace(log.Here(), "checkDatasourceID() : calling method -")
-
 	if !bson.IsObjectIdHex(ds_id) {
 		return false, errors.New("bad format for datasourceID!")
 	}
@@ -35,15 +34,18 @@ func (m MongoContext) checkDatasourceID(ds_id string) (bool, error) {
 	if nb == 1 && err == nil {
 		return true, nil
 	} else {
-		return false, errors.New("datasourceID does not exist!")
+		return false, nil
 	}
 }
 
 // Create a datasource
 func (m MongoContext) Create_datasource(datasource *DataSource) error {
 	log.Trace(log.Here(), "Create_datasource() : calling method -")
-	if !bson.IsObjectIdHex(datasource.Id.String()) {
+	if !bson.IsObjectIdHex(datasource.Id.Hex()) {
 		datasource.Id = bson.NewObjectId()
+		log.Trace(log.Here(), "create datasource with a new ID:", datasource.Id.Hex())
+	} else {
+		log.Trace(log.Here(), "create datasource with ID:", datasource.Id.Hex())
 	}
 	datasource.Date_creation = time.Now()
 	mongoSession := m.Session.Clone()

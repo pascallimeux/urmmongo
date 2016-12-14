@@ -1,5 +1,5 @@
 /*
-Copyright Orange Labs. 2016 All Rights Reserved.
+Copyright Pascal Limeux. 2016 All Rights Reserved.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -14,6 +14,7 @@ limitations under the License.
 package model
 
 import (
+	"errors"
 	"github.com/pascallimeux/urmmongo/utils"
 	"github.com/pascallimeux/urmmongo/utils/log"
 	"gopkg.in/mgo.v2"
@@ -48,19 +49,43 @@ func (m MongoContext) CreateValueIndex() error {
 func (m MongoContext) Create_value(ds_id, st_id string, value *Value) error {
 	log.Trace(log.Here(), "Create_value() : calling method -")
 	value.Id = bson.NewObjectId()
+	var ds_exist, st_exist bool
+	var err error
+	ds_exist, err = m.checkDatasourceID(ds_id)
+	st_exist, err = m.checkStreamID(st_id)
+	if err != nil {
+		log.Error(log.Here(), err.Error())
+		return err
+	}
 	if m.Control {
-		_, err := m.checkDatasourceID(ds_id)
-		if err != nil {
-			log.Error(log.Here(), err.Error())
-			return err
-		}
-		_, err = m.checkStreamID(st_id)
-		if err != nil {
-			log.Error(log.Here(), err.Error())
-			return err
+		if !ds_exist || !st_exist {
+			log.Error(log.Here(), "DatasourceID or StreamID does not exist!")
+			return errors.New("DatasourceID or StreamID does not exist!")
 		}
 	} else {
-
+		if !ds_exist {
+			var datasource DataSource
+			datasource.Id = bson.ObjectIdHex(ds_id)
+			datasource.Name = "autocreate"
+			datasource.Description = "Datasource auto create"
+			log.Trace(log.Here(), "Autocreate a datasource ID=", datasource.Id.String())
+			err := m.Create_datasource(&datasource)
+			if err != nil {
+				return err
+			}
+		}
+		if !st_exist {
+			var stream Stream
+			stream.Id = bson.ObjectIdHex(st_id)
+			stream.Ds_id = ds_id
+			stream.Name = "autocreate"
+			stream.Description = "Stream auto create"
+			log.Trace(log.Here(), "Autocreate a stream ID=", stream.Id.String())
+			err := m.Create_stream(ds_id, &stream)
+			if err != nil {
+				return err
+			}
+		}
 	}
 	value.Ds_id = ds_id
 	value.St_id = st_id
@@ -89,6 +114,22 @@ func (m MongoContext) Get_values(ds_id, st_id, date_params, interval string) ([]
 	timer.StartTimer()
 	var values = make([]Value, 0)
 	var err error
+	var ds_exist, st_exist bool
+	ds_exist, err = m.checkDatasourceID(ds_id)
+	if err != nil {
+		log.Error(log.Here(), err.Error())
+		return values, err
+	}
+	st_exist, err = m.checkStreamID(st_id)
+	if err != nil {
+		log.Error(log.Here(), err.Error())
+		return values, err
+	}
+	if !ds_exist || !st_exist {
+		log.Error(log.Here(), "DatasourceID or StreamID does not exist!")
+		return values, errors.New("DatasourceID or StreamID does not exist!")
+	}
+
 	mongoSession := m.Session.Clone()
 	defer mongoSession.Close()
 	c := mongoSession.DB(m.MongoDbName).C("value")

@@ -25,7 +25,7 @@
 		./stop_urmmongo.sh
 
 
-## Installation in docker container
+## Installation on docker container
 	
 	- Update Dockerfile
 		setup or remove proxy in this file:  $GOPATH/src/github.com/pascallimeux/urmmongo/Dockerfile
@@ -50,3 +50,12 @@
 		check path in urmmongo.service
 		cd $GOPATH/src/github.com/pascallimeux/urmmongo/dist
 		./deploy_service.sh
+
+## Running test
+
+	- For all tests
+		cd $GOPATH/src/github.com/pascallimeux/urmmongo/server/tests
+		go test
+		
+	- For one test
+		go test -run "TestValueCreateNominal" 
