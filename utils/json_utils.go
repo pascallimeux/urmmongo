@@ -28,6 +28,15 @@ func Display_json(jsonstr string) {
 	log.Trace(log.Here(), "Json object: ", out.String())
 }
 
+func Struct_toString(i interface{}) (string, error) {
+	st := ""
+	out, err := json.Marshal(i)
+	if err != nil {
+		return st, err
+	}
+	return string(out), nil
+}
+
 func ReadFile(filename string) (string, error) {
 	var payload string
 	raw, err := ioutil.ReadFile(filename)
