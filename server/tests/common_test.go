@@ -114,7 +114,7 @@ func build_payload(value, datestr string) string {
 func testCreateValue(datasourceId, streamId, valuestr, datestr string, t *testing.T) {
 	payload := build_payload(valuestr, datestr)
 	postData := strings.NewReader(payload)
-	log.Trace(log.Here(), "postdata: ", payload)
+	//log.Trace(log.Here(), "postdata: ", payload)
 	res, err := http.Post(httpServerTest.URL+"/datasources/"+datasourceId+"/streams/"+streamId+"/values/", applicationJSON, postData)
 	bytes, err := ioutil.ReadAll(res.Body)
 	res.Body.Close()

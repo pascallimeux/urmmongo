@@ -92,8 +92,11 @@ func (m MongoContext) Create_value(ds_id, st_id string, value *Value) error {
 
 	at, err := utils.DateParse(value.At.String(), utils.DATEFORMAT3, false)
 	if err != nil {
-		log.Error(log.Here(), err.Error())
-		return err
+		at, err = utils.DateParse(value.At.String(), utils.DATEFORMAT4, false)
+		if err != nil {
+			log.Error(log.Here(), err.Error())
+			return err
+		}
 	}
 	value.At = at
 	mongoSession := m.Session.Clone()

@@ -24,7 +24,7 @@ import (
 func TestValueCreateNominal(t *testing.T) {
 	datasourceId := testCreateDS(MOCK_DS, t)
 	streamId := testCreateST(datasourceId, MOCK_ST, t)
-	datestr := "2016-12-09T08:41:24+02:00"
+	datestr := "2016-12-09T08:41:24+01:00"
 	testCreateValue(datasourceId, streamId, MOCK_HR, datestr, t)
 }
 

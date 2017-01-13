@@ -17,6 +17,7 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"github.com/pascallimeux/urmmongo/server/model"
+	//"github.com/pascallimeux/urmmongo/utils"
 	"github.com/pascallimeux/urmmongo/utils/log"
 	"io/ioutil"
 	"net/http"
@@ -66,7 +67,7 @@ func (a *AppContext) postValueHandler(w http.ResponseWriter, r *http.Request) {
 	st_id := vars["st_id"]
 
 	bytes, _ := ioutil.ReadAll(r.Body)
-	log.Trace(log.Here(), "Value:", string(bytes))
+	//log.Trace(log.Here(), "Value:", string(bytes))
 	err := json.Unmarshal(bytes, &values)
 	if err != nil {
 		sendError(log.Here(), w, err)
@@ -81,7 +82,12 @@ func (a *AppContext) postValueHandler(w http.ResponseWriter, r *http.Request) {
 	//}
 
 	value = values[0]
-	log.Trace(log.Here(), "create value for DSID:", ds_id, "  STDI: ", st_id)
+	//value.At, err = utils.CheckDateFormat(value.At)
+	//if err != nil {
+	//	sendError(log.Here(), w, err)
+	//	return
+	//}
+	log.Trace(log.Here(), "create value for DSID:", ds_id, "  STDI: ", st_id, "with date: ", value.At.String())
 	err = a.Mongo.Create_value(ds_id, st_id, &value)
 	if err != nil {
 		sendError(log.Here(), w, err)

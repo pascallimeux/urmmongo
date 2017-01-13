@@ -21,9 +21,10 @@ import (
 const DATEFORMAT1 = "2006-01-02T15:04:05.000Z"
 const DATEFORMAT2 = "2006-01-02"
 const DATEFORMAT3 = "2006-01-02 15:04:05 -0700 -0700"
+const DATEFORMAT4 = "2006-01-02 15:04:05 -0700 MST"
 
 func DateParse(datestr, layout string, all_the_day bool) (time.Time, error) {
-	log.Trace(log.Here(), "DateParse() : calling method -")
+	log.Trace(log.Here(), "DateParse() : calling method for: ", datestr)
 	date, err := time.Parse(layout, datestr)
 	if err != nil {
 		log.Error(log.Here(), "DateParse error: ", err.Error())
