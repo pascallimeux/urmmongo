@@ -17,6 +17,12 @@
 		cd $GOPATH/src/github.com/pascallimeux/urmmongo/server
 		./build_urmmongo.sh
 
+	- zip and transfert the delivery
+		cd urmmongo
+		tar cvzf urmmongo.tar.gz dist/
+		scp urmmongo.tar.gz orange@10.194.18.46:/tmp
+
+
 	- Start component
 		cd $GOPATH/src/github.com/pascallimeux/urmmongo/dist
 		./start_urmmongo.sh

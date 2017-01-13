@@ -1,6 +1,6 @@
 #!/bin/bash
 LOGDIR="/var/log/mhealth-urm-mongo"
-USER="pascal"
+USER="orange"
 if [ ! -d "$LOGDIR" ]; then
 	echo "Create log directory"
     sudo mkdir -p $LOGDIR
